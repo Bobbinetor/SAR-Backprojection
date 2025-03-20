@@ -106,6 +106,42 @@ The program generates the following output files:
 
 During processing, a temporary checkpoint file (`focalizador_checkpoint.npz`) is created, which is automatically removed upon process completion. In case of interruption, the process will resume from the last saved checkpoint when executed again.
 
+
+## Visualisation
+
+The package includes a visualisation script (`img_visualizer.py`) that converts the focused SAR data into viewable images. This script can load data from either the separate real and imaginary files or from the unified complex file.
+
+### Usage
+
+```bash
+python img_visualizer.py
+```
+
+### Features
+
+- Automatically detects available output files (separate or unified complex)
+- Generates PNG images with correct scaling
+- Includes optional display with matplotlib for interactive visualisation
+- Provides options for alternative orientations if needed
+- Uses standard SAR image display conventions
+
+### Parameters
+
+The script offers several customisable parameters:
+
+- `shape`: Target dimensions for the output image (default: 250x4000)
+- `scale_factor`: Amplification factor for image brightness (default: 15)
+- `display`: Option to show the image interactively (default: True)
+
+### Example Output
+
+The script generates two files:
+- `SAR_Image_Correct_v1.png`: The main output image
+- `SAR_Image_display.png`: A version with colorbar and annotations (if display=True)
+
+To test different orientations, uncomment the relevant sections in the script.
+
+
 ## Internal Functioning
 
 ### Back-Projection Algorithm
@@ -189,10 +225,16 @@ This project is distributed under the MIT licence. See the `LICENSE` file for de
 
 ## Authors
 
-- Author Name - [email@example.com](mailto:email@example.com)
+- Alfredo Petruolo - [petruolo95@gmail.com](mailto:petruolo95@gmail.com)
+- Luigi Coppolino - [luigi.coppolino@uniparthenope.it](mailto:luigi.coppolino@uniparthenope.it)
 
 ## References
-
+TO DO
 - [Synthetic Aperture Radar (SAR) Theory](https://example.com)
 - [Back-Projection Algorithm for SAR](https://example.com)
 - [Radar Signal Processing](https://example.com)
+
+
+
+
+
