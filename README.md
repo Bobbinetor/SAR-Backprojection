@@ -1,6 +1,6 @@
 # SAR Focuser
 
-![SAR Focuser](placeholder_for_sar_image.png)
+![SAR Focuser](images/UI.png)
 
 ## Description
 
