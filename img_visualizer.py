@@ -3,7 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import os
 
-def load_complex_data(real_file, imag_file, shape=(250, 4000), order='F'):
+def load_complex_data(real_file, imag_file, shape=(250, 4000), order='C'):
     """
     Load complex data from separate real and imaginary files with correct orientation
     
@@ -61,27 +61,26 @@ def create_sar_image(complex_data, output_png, scale_factor=15, display=True):
         plt.savefig("SAR_Image_display.png")
         plt.show()
     
+    
     return img
 
-def load_from_complex_file(complex_file, shape=(250, 4000), order='F'):
+def load_from_complex_file(complex_file, shape=(250, 4000), order='C'):
     """
     Load complex data from a single file
-    
-    The complex file is expected to have real and imaginary parts stacked
     """
-    data = np.fromfile(complex_file, dtype=np.float32)
+    data = np.fromfile(complex_file, dtype=np.float32)  # Changed to float32
+    
     n_elements = np.prod(shape)
     
-    # Reshape to [2, n_elements]
-    data = data.reshape(2, n_elements, order=order)
+    # Split data in half
+    real_part = data[:n_elements].reshape(shape, order=order)
+    imag_part = data[n_elements:].reshape(shape, order=order)
     
     # Create complex array
-    complex_data = data[0] + 1j * data[1]
-    
-    # Reshape to final shape
-    complex_data = complex_data.reshape(shape, order=order)
-    
+    complex_data = real_part + 1j * imag_part
+    #complex_data = np.fliplr(complex_data)
     return complex_data
+
 
 if __name__ == "__main__":
     # Correct shape of the SAR image (250x4000)
@@ -90,18 +89,42 @@ if __name__ == "__main__":
     # File paths
     real_file = "SlcMatr_real.dat"
     imag_file = "SlcMatr_imag.dat"
-    complex_file = "SlcMatr_complex.dat"
-    output_png = "SAR_Image_Correct_v1.png"
+    complex_file = "SlcPx_Python_Corrected_InterleavedF32.dat"
+    #complex_file = "SlcPx_idl_matched_complex.dat"
+    output_png = "SAR_Image_Correct_v2.png"
     
     # Check which files exist
-    if os.path.exists(real_file) and os.path.exists(imag_file):
-        print("Loading from separate real and imaginary files...")
-        complex_data = load_complex_data(real_file, imag_file, shape)
-    elif os.path.exists(complex_file):
-        print("Loading from complex file...")
-        complex_data = load_from_complex_file(complex_file, shape)
+    print("Select an option:")
+    print("1: Load from separate real and imaginary files")
+    print("2: Load from a single complex file")
+    print("3: Load from 'slc_ch0_res0.300000_4000x250.dat'")
+    
+    choice = input("Enter your choice (1/2/3): ").strip()
+    
+    if choice == "1":
+        if os.path.exists(real_file) and os.path.exists(imag_file):
+            print("Loading from separate real and imaginary files...")
+            complex_data = load_complex_data(real_file, imag_file, shape)
+        else:
+            print("Error: Real or imaginary file does not exist!")
+            exit(1)
+    elif choice == "2":
+        if os.path.exists(complex_file):
+            print("Loading from complex file...")
+            complex_data = load_from_complex_file(complex_file, shape)
+        else:
+            print("Error: Complex file does not exist!")
+            exit(1)
+    elif choice == "3":
+        alt_file = "vera_matrice.dat"
+        if os.path.exists(alt_file):
+            print(f"Loading from '{alt_file}'...")
+            complex_data = load_from_complex_file(alt_file, shape)
+        else:
+            print(f"Error: File '{alt_file}' does not exist!")
+            exit(1)
     else:
-        print(f"Error: Required data files do not exist!")
+        print("Invalid choice! Please enter 1, 2, or 3.")
         exit(1)
         
     # Create and save image

@@ -46,3 +46,14 @@ htmlcov/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+
+# Ignore all data files
+*.dat
+*.npy
+
+# Ignore all png files
+*.png
+
+# Ignore backup folder
+backup/
