@@ -227,6 +227,7 @@ This project is distributed under the MIT licence. See the `LICENSE` file for de
 
 - Alfredo Petruolo - [petruolo95@gmail.com](mailto:petruolo95@gmail.com)
 - Luigi Coppolino - [luigi.coppolino@uniparthenope.it](mailto:luigi.coppolino@uniparthenope.it)
+- Jorge A. Euillades - [euillades.j@irea.cnr.it](mailto:euillades.j@irea.cnr.it) 
 
 ## References
 TO DO
