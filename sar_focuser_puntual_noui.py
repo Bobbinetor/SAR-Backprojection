@@ -23,7 +23,8 @@ def process_point(xxg1_flat_ii, yyg1_flat_ii, zzg1_flat_ii, # Valori scalari per
     # Costanti fisiche definite con precisione float64 all'interno della funzione JIT
     C_F64 = 2.9979246e8
     ALFA_F64 = 3.335987619777693e11
-    PI_F64 = np.pi
+    #PI_F64 = np.pi
+    PI_F64 = 3.141592741012573242
     # Beta calcolato in float64
     BETA_F64 = 4.0 * PI_F64 * ALFA_F64 / (C_F64 * C_F64)
     # Lambda in float64 (passato come argomento)
