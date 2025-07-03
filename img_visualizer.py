@@ -89,7 +89,7 @@ if __name__ == "__main__":
     # File paths
     real_file = "SlcMatr_real.dat"
     imag_file = "SlcMatr_imag.dat"
-    complex_file = "SlcPx_Python_Corrected_InterleavedF32.dat"
+    complex_file = "SlcGpu_RTX4090_CuPy_InterleavedF32.dat"
     #complex_file = "SlcPx_idl_matched_complex.dat"
     output_png = "SAR_Image_Correct_v2.png"
     
